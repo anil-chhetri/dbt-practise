@@ -24,17 +24,18 @@ Apart from SQL, dbt will also support jinja, a common templating language used i
 
 ## important files used in dbt projects.
 
-### profiles.yml
+### *profiles.yml*
 This file contains the database connection that dbt will use to connect to the data warehouse. Since this file can have sensitive information such as project name and database credentials, it is not in your dbt project. By default, the file is created in the home folder location (` ~/.dbt/`). This file is created when you run `dbt init` command. if we have multiple project of dbt locally, different project names will allow to set up various profiles.
 
 Beside configuring the database connection, we can also configure a target. Target is how we can have different configuration for different environments (dev, test, prod). for eg: when developing locally,  tema would want separate datasets/database to work on. But when deploying to production, it is best to have all tables in a single dataset/database. The default target is dev.
 
-### dbt_project.yml
-### models
-### macros
-### package.yml
-### snapshot
-### tests
+### *dbt_project.yml*
+This file is main configuration file for your project. porfile name given to this file should match the profile that we have created in *profiles.uml* file. All the object in this project will inherity settings configured here unless overridden at the model level. For eg: you can configure to create all models as tables in the *db_project.yml* file. But can be overriden that setting to create as a view in model using jija template config function. 
 
+Where to configure what depends on project setup, but a good principle to follow is DRY(do not repeat yourslef) For settings that applies to the whole project or specific folder, define here in this file, for options that are only relevant to one model, confifure it in model itself.
+for more information [==> link to docs](https://docs.getdbt.com/reference/dbt_project.yml)
+
+### *models*
+The model folder contains all data models in your project. each project subfolder should contain the  `schema.yml` file that defines the description and test case realted the model.
 
 
